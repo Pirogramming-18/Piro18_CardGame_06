@@ -4,11 +4,8 @@ from django.http.request import HttpRequest
 
 userkey = 3 
 
-def main_before(request:HttpRequest, *args, **kwargs):
-    pass
-
-def main_after(request:HttpRequest, *args, **kwargs):
-    pass
+def main(request:HttpRequest, *args, **kwargs):
+    return render(request, "main.html")
 
 def login(request:HttpRequest, *args, **kwargs):
     pass
