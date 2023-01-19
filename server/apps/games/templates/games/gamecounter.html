@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+    {% load static %}
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>반격하기 페이지</title>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+    <body>
+        <nav>
+            <a href="{% url 'games:gamestart' %}">게임하기</a>
+            <a href="{% url 'games:gameranking' %}">랭킹보기</a>
+            <a href="{% url 'games:logout' %}">로그아웃</a>
+        </nav>
+        <main>
+            <form action="{% url 'games:gamecounter' user.pk %}" method="post">
+                {% csrf_token %}
+                <p>{{attacker.username}}에게 반격하세요!</p>
+                <p>내가 고른 카드:
+                    <select name="defend_card">
+                        <option value="">{{num[0]}}</option>
+                        <option value="">{{num[1]}}</option>
+                        <option value="">{{num[2]}}</option>
+                        <option value="">{{num[3]}}</option>
+                        <option value="">{{num[4]}}</option>
+                    </select>
+                </p> 
+                <div>
+                    <button type="submit">반격하기!</button>
+                </div>
+            </form>
+        </main>
+    </body>
+</html>
