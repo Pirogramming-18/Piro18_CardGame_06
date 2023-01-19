@@ -1,0 +1,24 @@
+@import url("./font.css");
+@import url("./reset.css");
+
+.main i {
+  color: white;
+}
+
+.main p {
+  color: white;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.main a {
+  margin-top: 2rem;
+  background-color: white;
+  padding: 1rem 2rem;
+  border: 1px solid white;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: inherit;
+}
