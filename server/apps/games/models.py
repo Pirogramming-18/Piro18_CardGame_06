@@ -2,8 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
-    username = models.CharField(max_length=20, unique=True)
-    score = models.IntegerField()
+    pass
 
 class Game(models.Model):
     attacker = models.ForeignKey(User, on_delete=models.CASCADE, related_name="attack_user") # 공격자
@@ -12,3 +11,6 @@ class Game(models.Model):
     # 처음 공격시작시 공격자,수비자,공격자 카드는 정해지므로 일단 수비자카드와 상태는 null가능하게 설정
     defend_card = models.IntegerField(null=True, blank=True)  # 수비자 숫자  
     status = models.IntegerField() # 현재 게임 상태 1,2,3 중 하나 
+
+class Blog(models.Model):
+    text = models.TextField()

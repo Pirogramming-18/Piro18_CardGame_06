@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/gamestart.css' %}" />
     <title>Document</title>
   </head>
   <body>
@@ -22,23 +22,15 @@
       </div>
     </nav>
     <main class="main">
-      <i class="fa-solid fa-gamepad fa-5x"></i>
-      <p>전 세계 피로그래머와</p>
-      <p>한 판 승부 숫자카드게임</p>
-      {% if user.is_authenticated %}
-      <p>{{ user.username }} 님이 로그인 중</p>
-      <a href="{% url 'games:gamestart' %}">게임하기</a>
-      <a>전적보기</a>
-      {% else %}
-      <a href="{% url 'games:login' %}">게임하기</a>
-      {% endif %}
+      <form action="{% url 'games:gamestart' %}" method="post">
+        {% csrf_token %}
+        <div>내가 고른 카드: <input type="text" /></div>
+        <div>공격할 상대는?: <input type="text" /></div>
+        <input type="submit" value="공격하기" />
+      </form>
     </main>
     <footer class="footer">
       <div>6조 화이팅!</div>
     </footer>
-    <script
-      src="https://kit.fontawesome.com/6fbcf91afd.js"
-      crossorigin="anonymous"
-    ></script>
   </body>
 </html>
