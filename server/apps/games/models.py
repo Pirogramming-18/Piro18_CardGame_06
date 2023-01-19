@@ -1,9 +1,9 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
-class User(models.Model):
-    name = models.CharField(max_length=20) # 유저 이름
-    score = models.IntegerField # 유저의 현재 총 점수 
+class User(AbstractUser):
+    username = models.CharField(max_length=20)
+    score = models.IntegerField()
 
 class Game(models.Model):
     attacker = models.ForeignKey(User, on_delete=models.CASCADE, related_name="attack_user") # 공격자
