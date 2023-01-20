@@ -85,21 +85,43 @@ def game_info(request:HttpRequest, pk, *args, **kwargs):
     return render(f"gameinfo/{game.pk}")
 
 def game_counter(request:HttpRequest, pk, *args, **kwargs):
-    user = User.objects.get(id=pk)
     game = Game.objects.get(id=pk)
-    
+    defender = game.defender
+    attacker = game.attacker
+    attack_card = game.attack_card
+    defend_card = game.defend_card
+
     a = list(range(1,11))
     num = random.sample(a, 5)
     context={ 
-        "user":user,
-        "num":num
+        "attacker" : attacker,
+        "num" : num,
     }
+    
     if request.method == "POST":
-        Game.objects.create(
-            defend_card=request.POST["defend_card"],
-        )
-        return redirect(f"/gameinfo/{user.pk}")
-    return render(request, "games/gamecounter.html", context=context) 
+        game.defend_card=request.POST["defend_card"]
+        game_rule = random.randint(1,2) # 1-> 클수록 이김, 2-> 작을수록 이김
+        if (game_rule == 1) :
+            if (game.attack_card > game.defend_card) :
+                status = 2
+                attacker.score += attack_card
+                defender.score -= defend_card
+            else :
+                status = 3
+                attacker.score -= attack_card
+                defender.score += defend_card
+        else :
+            if (game.attack_card > game.defend_card) :
+                status = 3
+                attacker.score -= attack_card
+                defender.score += defend_card
+            else :
+                status = 2
+                attacker.score += attack_card
+                defender.score -= defend_card
+        game.status = status
+        return redirect(f"/gameinfo/{game.pk}")
+    return render(request, "/gamecounter.html", context=context) 
 
 def game_ranking(request:HttpRequest, *args, **kwargs):
     pass
