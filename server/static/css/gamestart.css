@@ -67,3 +67,8 @@
   font-weight: 800;
   font-size: 1.1rem;
 }
+
+.rank {
+  display: flex;
+  flex-direction: row;
+}

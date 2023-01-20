@@ -88,6 +88,10 @@ def game_counter(request:HttpRequest, pk, *args, **kwargs):
         "attacker" : attacker,
         "num" : num,
     }
+
+    attacker = User.objects.get(username=game.attacker.username)
+
+    defender = User.objects.get(username=game.defender.username)
     
     if request.method == "POST":
         game.defend_card=int(request.POST["defend_card"])
@@ -113,17 +117,19 @@ def game_counter(request:HttpRequest, pk, *args, **kwargs):
                 defender.score -= game.defend_card
         game.status = status
         game.save()
+        attacker.save()
+        defender.save()
         return redirect(f"/gameinfo/{game.pk}")
     return render(request, "gamecounter.html", context=context) 
 
 def game_ranking(request:HttpRequest, *args, **kwargs):
     users = User.objects.order_by("-score")
-    list = list(range(1, len(users)+1))
+    users_list = list(range(1, len(users)+1))
     context = {
         "users" : users,
-        "list" : list,
+        "list" : users_list,
     }
-    return render(request, "/game_ranking.html", context=context)
+    return render(request, "game_ranking.html", context=context)
 
 
 def game_delete(request:HttpRequest, pk, *args, **kwargs):
@@ -139,7 +145,7 @@ def signup(request:HttpRequest):
         if form.is_valid():
             user = form.save()
             auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')      
-            return render(request, template_name="signup.html")
+            return render(request, template_name="main.html")
         else:
             return redirect('games:signup')
     else:
