@@ -34,7 +34,7 @@ def logout(request):
     auth.logout(request)
     return redirect('/')
 
-def game_start(request:HttpRequest, pk,*args, **kwargs):
+def game_start(request:HttpRequest,*args, **kwargs):
     a = list(range(0,11))
     cardnum = random.sample(a,5)
     users = User.objects.all()
