@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+    <title>Document</title>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div>
+        <a href="{% url 'games:main' %}" class="main-logo">PIROGRAM CARDGAME</a>
+      </div>
+      <div class="nav-btn">
+        {% if user.is_authenticated %}
+        <a href="{% url 'games:gamestart' %}">게임하기</a>
+        <a href="{% url 'games:gameranking' %}">랭킹보기</a>
+        <a href="{% url 'games:logout' %}">로그아웃</a>
+        {% else %}
+        <a href="{% url 'games:login' %}">로그인</a>
+        {% endif %}
+      </div>
+    </nav>
+    <main class="main">
+      <div class="login-container">
+        <p class="login">로그인</p>
+        {% block content %}
+        <form method="POST" action="" class="login-form">
+          {% csrf_token %} {{ form }}
+          <button class="login-btn">Login</button>
+        </form>
+        {% endblock content %} {% load socialaccount %} {% providers_media_js %}
+        <div>
+          <a href="{% url 'games:signup' %}">회원가입</a>
+          <a href="{% provider_login_url 'google' %}">구글 로그인</a>
+        </div>
+      </div>
+    </main>
+    <footer class="footer">
+      <div>🔥 6조 화이팅 🔥</div>
+    </footer>
+    <script
+      src="https://kit.fontawesome.com/6fbcf91afd.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

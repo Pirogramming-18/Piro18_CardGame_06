@@ -1,0 +1,43 @@
+@import url("./font.css");
+@import url("./reset.css");
+
+.login-container {
+  background-color: white;
+  width: 70%;
+  height: 70%;
+  border: 1px solid white;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
+
+.login {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+}
+
+.login-btn {
+  background-color: black;
+  border: 1px solid black;
+  border-radius: 5px;
+  color: white;
+  margin-top: 2rem;
+  padding: 0.5rem 1rem;
+}
+
+.main a {
+  text-decoration: none;
+  color: white;
+  background-color: black;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  margin-left: 2rem;
+}

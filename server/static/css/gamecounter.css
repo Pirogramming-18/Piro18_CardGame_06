@@ -1,0 +1,26 @@
+@import url("./font.css");
+@import url("./reset.css");
+
+.main {
+  color: white;
+}
+.main > p {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.counter {
+  cursor: pointer;
+  margin-top: 2rem;
+  padding: 0.5rem 1rem;
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+  font-weight: 700;
+}

@@ -1,0 +1,74 @@
+@import url("./font.css");
+@import url("./reset.css");
+
+.main form div {
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.main {
+  color: white;
+}
+
+.game-rule {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.game-rule p {
+  margin: 0.3rem;
+}
+
+.game-rule p:nth-child(2) span {
+  color: rgb(242, 61, 61);
+  font-size: 1.2rem;
+}
+
+.game-rule p:nth-child(1) span {
+  color: rgb(116, 116, 250);
+  font-size: 1.2rem;
+}
+
+.game-rule details {
+  text-align: center;
+  margin: 0.8rem;
+  width: 100%;
+}
+.main form {
+  width: 30%;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main form div {
+  width: 100%;
+}
+
+.main form div select {
+  width: 50%;
+}
+
+.user {
+  color: white;
+}
+
+.submit-btn {
+  cursor: pointer;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+  color: rgb(242, 61, 61);
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.rank {
+  display: flex;
+  flex-direction: row;
+}

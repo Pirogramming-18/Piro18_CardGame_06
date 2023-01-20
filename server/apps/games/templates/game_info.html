@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/gameinfo.css' %}" />
+    <title>Document</title>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div>
+        <a href="{% url 'games:main' %}" class="main-logo">PIROGRAM CARDGAME</a>
+      </div>
+      <div class="nav-btn">
+        {% if user.is_authenticated %}
+        <a href="{% url 'games:gamestart' %}">게임하기</a>
+        <a href="{% url 'games:gameranking' %}">랭킹보기</a>
+        <a href="{% url 'games:logout' %}">로그아웃</a>
+        {% else %}
+        <a href="{% url 'games:login' %}">로그인</a>
+        {% endif %}
+      </div>
+    </nav>
+    <main class="main">
+      <div class="game-info">
+        <p class="game-title">
+          {{game.id}} - {{game.attacker}} VS {{game.defender}}
+        </p>
+        {% if game.status == 1 %} {% if game.attacker == user %}
+        <div class="game-detail">
+          <p>진행중...</p>
+          <p>나 : {{game.attack_card}}</p>
+          <form action="{% url 'games:gamedelete' game.pk %}" method="post">
+            {% csrf_token %}
+            <input class="goto-list" type="submit" value="게임취소" />
+          </form>
+        </div>
+        {% else %}
+        <div class="game-detail-counter">
+          <a class="counter" href="{% url 'games:gamecounter' game.pk %}"
+            >반격하기</a
+          >
+        </div>
+        {% endif %} {% endif %} {% if game.status == 2 or game.status == 3 %}
+        <div class="game_result">
+          {% if game.rule == 1 %}
+          <p>숫자가 더 큰 사람이 이깁니다</p>
+          {% else %}
+          <p>숫자가 더 작은 사람이 이깁니다</p>
+          {% endif %} {% if user == game.attacker %}
+          <p>나 : {{game.attack_card}}</p>
+          <p>{{game.defender.username}} : {{game.defend_card}}</p>
+          {% if game.status == 2 %}
+          <p><span class="result"> 결과 : </span>승리</p>
+          <p><span class="result"> 점수 : </span> +{{game.attack_card}}</p>
+          {% endif %} {% if game.status == 3 %}
+          <p><span class="result"> 결과 : </span> 패배</p>
+          <p><span class="result"> 점수 : </span> -{{game.attack_card}}</p>
+          {% endif %}{% endif %} {% if user == game.defender %}
+          <p>나 : {{game.defend_card}}</p>
+          <p>{{game.attacker.username}} : {{game.attack_card}}</p>
+          {% if game.status == 2 %}
+          <p><span class="result"> 결과 : </span> 패배</p>
+          <p><span class="result"> 점수 : </span> -{{game.defend_card}}</p>
+          {% endif %} {% if game.status == 3 %}
+          <p><span class="result"> 결과 : </span> 승리</p>
+          <p><span class="result"> 점수 : </span>+{{game.defend_card}}</p>
+          {% endif %} {% endif %}
+        </div>
+
+        {% endif %}
+        <a href="{% url 'games:gamelist' %}" class="goto-list">전적목록</a>
+      </div>
+    </main>
+    <footer class="footer"><div>🔥 6조 화이팅 🔥</div></footer>
+  </body>
+</html>
