@@ -10,11 +10,13 @@
   </head>
   <body>
     <nav class="navbar">
-      <div>PIROGRAM CARDGAME</div>
+      <div>
+        <a href="{% url 'games:main' %}" class="main-logo">PIROGRAM CARDGAME</a>
+      </div>
       <div class="nav-btn">
         {% if user.is_authenticated %}
         <a href="{% url 'games:gamestart' %}">게임하기</a>
-        <a href="">랭킹보기</a>
+        <a href="{% url 'games:gameranking' %}">랭킹보기</a>
         <a href="{% url 'games:logout' %}">로그아웃</a>
         {% else %}
         <a href="{% url 'games:login' %}">로그인</a>
@@ -26,15 +28,15 @@
       <p>전 세계 피로그래머와</p>
       <p>한 판 승부 숫자카드게임</p>
       {% if user.is_authenticated %}
-      <p>{{ user.username }} 님이 로그인 중</p>
+      <p><span class="user">{{ user.username }}</span> 님이 로그인 중</p>
       <a href="{% url 'games:gamestart' %}">게임하기</a>
-      <a>전적보기</a>
+      <a href="{% url 'games:gamelist'%}">전적보기</a>
       {% else %}
       <a href="{% url 'games:login' %}">게임하기</a>
       {% endif %}
     </main>
     <footer class="footer">
-      <div>6조 화이팅!</div>
+      <div>🔥 6조 화이팅 🔥</div>
     </footer>
     <script
       src="https://kit.fontawesome.com/6fbcf91afd.js"
