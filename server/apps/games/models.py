@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
-    pass
+    score = models.IntegerField(null=True, blank=True, default=0)
 
 class Game(models.Model):
     attacker = models.ForeignKey(User, on_delete=models.CASCADE, related_name="attack_user") # 공격자

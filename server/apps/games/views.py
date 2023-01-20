@@ -86,13 +86,16 @@ def game_info(request:HttpRequest, pk, *args, **kwargs):
 
 def game_counter(request:HttpRequest, pk, *args, **kwargs):
     game = Game.objects.get(id=pk)
-    attacker = game.attacker.username
-    
+    defender = game.defender
+    attacker = game.attacker
+    attack_card = game.attack_card
+    defend_card = game.defend_card
+
     a = list(range(1,11))
     num = random.sample(a, 5)
     context={ 
         "attacker" : attacker,
-        "num":num,
+        "num" : num,
     }
     
     if request.method == "POST":
@@ -101,13 +104,21 @@ def game_counter(request:HttpRequest, pk, *args, **kwargs):
         if (game_rule == 1) :
             if (game.attack_card > game.defend_card) :
                 status = 2
+                attacker.score += attack_card
+                defender.score -= defend_card
             else :
                 status = 3
+                attacker.score -= attack_card
+                defender.score += defend_card
         else :
             if (game.attack_card > game.defend_card) :
                 status = 3
+                attacker.score -= attack_card
+                defender.score += defend_card
             else :
                 status = 2
+                attacker.score += attack_card
+                defender.score -= defend_card
         game.status = status
         return redirect(f"/gameinfo/{game.pk}")
     return render(request, "/gamecounter.html", context=context) 
