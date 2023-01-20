@@ -10,11 +10,13 @@
   </head>
   <body>
     <nav class="navbar">
-      <div>PIROGRAM CARDGAME</div>
+      <div>
+        <a href="{% url 'games:main' %}" class="main-logo">PIROGRAM CARDGAME</a>
+      </div>
       <div class="nav-btn">
         {% if user.is_authenticated %}
         <a href="{% url 'games:gamestart' %}">게임하기</a>
-        <a href="">랭킹보기</a>
+        <a href="{% url 'games:gameranking' %}">랭킹보기</a>
         <a href="{% url 'games:logout' %}">로그아웃</a>
         {% else %}
         <a href="{% url 'games:login' %}">로그인</a>
@@ -22,15 +24,45 @@
       </div>
     </nav>
     <main class="main">
+      <h1>게임 하기</h1>
+      <div class="game-rule">
+        <p>
+          아래에서 랜덤으로 생성된 <span>5개의 숫자중</span> 한 가지를 고르고
+        </p>
+        <p><span>공격할 상대</span> 를 골라주세요</p>
+        <details>
+          <summary>게임 규칙</summary>
+          <p>
+            숫자가 큰 사람이 이길수도, 숫자가 작은 사람이 이길 수도 있습니다
+          </p>
+          <p>이긴다면 자신의 숫자만큼 점수를 얻고, 진다면 그만큼 잃습니다</p>
+          <p>적절한 숫자를 골라서 점수를 얻어보세요!</p>
+        </details>
+      </div>
+
       <form action="{% url 'games:gamestart' %}" method="post">
         {% csrf_token %}
-        <div>내가 고른 카드: <input type="text" /></div>
-        <div>공격할 상대는?: <input type="text" /></div>
-        <input type="submit" value="공격하기" />
+        <input type="hidden" name="attacker" value="{{user.username}}" />
+        <div>
+          내가 고른 카드:
+          <select name="attacker_card">
+            {% for card in cardnum %}
+            <option value="{{card}}">{{card}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          공격할 상대는?:<select name="defender">
+            {% for player in users %} {% if player.username != user.username %}
+            <option value="{{player.username}}">{{player.username}}</option>
+            {% endif %} {% endfor %}
+          </select>
+        </div>
+        <input type="submit" value="공격하기" class="submit-btn" />
       </form>
     </main>
     <footer class="footer">
-      <div>6조 화이팅!</div>
+      <div>🔥 6조 화이팅 🔥</div>
     </footer>
   </body>
 </html>

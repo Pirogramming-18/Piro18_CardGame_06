@@ -40,15 +40,16 @@ def game_start(request:HttpRequest,*args, **kwargs):
     users = User.objects.all()
     
     context = {
-        "user" : users,
+        "users" : users,
         "cardnum"  : cardnum
     }
 
     if request.method == "POST":
        Game.objects.create(
-        attacker = request.POST['attcker'],
-        defender = request.POST['defender'],
-        attack_card = request.POST['attacker'], 
+        attacker = User.objects.get(username=request.POST['attacker']),
+        defender = User.objects.get(username=request.POST['defender']),
+        attack_card = request.POST['attacker_card'], 
+        status = 1,
        ) 
        return redirect("/gamelist")
     
