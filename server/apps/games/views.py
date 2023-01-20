@@ -1,6 +1,6 @@
 import random
 from django.shortcuts import render, redirect
-from server.apps.games.models import User, Game
+from .models import User, Game
 from django.http.request import HttpRequest
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth
