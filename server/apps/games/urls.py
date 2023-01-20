@@ -13,4 +13,9 @@ urlpatterns= [
     path("gameinfo/<int:pk>/delete", views.game_delete, name="gamedelete"),
     path("gamecounter/<int:pk>", views.game_counter, name="gamecounter"),
     path("gameranking", views.game_ranking, name="gameranking"),
+    
+    path("signup", views.signup, name="signup"),
+    path("signup/", views.signup, name="signup"),
+    #signup 뒤에 작대기 들어가야되는지 모르겠어서 둘다 적음
+    
 ]

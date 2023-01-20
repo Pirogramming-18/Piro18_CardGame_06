@@ -6,6 +6,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth
 import random
 
+from server.apps.games.forms import SignupForm
+
 
 def main(request:HttpRequest, *args, **kwargs):
     return render(request, "main.html")
@@ -131,3 +133,18 @@ def game_delete(request:HttpRequest, pk, *args, **kwargs):
     return redirect("/gamelist")
 
 
+def signup(request:HttpRequest):
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')      
+            return render(request, template_name="signup.html")
+        else:
+            return redirect('games:signup')
+    else:
+        form = SignupForm()
+        context = {
+            'form': form,
+        }
+        return render(request, template_name='signup.html', context=context)
