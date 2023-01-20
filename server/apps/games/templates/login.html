@@ -2,7 +2,6 @@
 
 <h1>hello world</h1>
 
-<a href="/accounts/signup">회원가입(구현안됨ㅜㅜ)</a>
 <br />
 
 {% if user.is_authenticated %}
@@ -10,4 +9,12 @@
 <br />
 {{user.username}} 님이 로그인 중 {% else %}
 <a href="{% provider_login_url 'google' %}">구글 로그인</a>
-로그인 해야댐 {% endif %}
+
+<a href="{% url 'games:signup' %}">쟝고 가입</a>
+
+로그인 해야댐 {% endif %} {% block content %}
+<form method="POST" action="">
+  {% csrf_token %} {{ form }}
+  <button>Login</button>
+</form>
+{% endblock content %}

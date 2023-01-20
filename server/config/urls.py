@@ -22,6 +22,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include("server.apps.games.urls")),
     path('accounts/', include('allauth.urls')),
+    
+    # path('apps/', include('server.apps.games.urls')),
+    
 ]
 
 if settings.DEBUG:
