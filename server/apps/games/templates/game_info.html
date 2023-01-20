@@ -39,9 +39,38 @@
         </div>
         {% else %}
         <div class="game-detail-counter">
-          <button>대응하기</button>
+          <a class="counter" href="{% url 'games:gamecounter' game.pk %}"
+            >반격하기</a
+          >
         </div>
-        {% endif %} {% endif %}
+        {% endif %} {% endif %} {% if game.status == 2 or game.status == 3 %}
+        <div class="game_result">
+          {% if game.rule == 1 %}
+          <p>숫자가 더 큰 사람이 이깁니다</p>
+          {% else %}
+          <p>숫자가 더 작은 사람이 이깁니다</p>
+          {% endif %} {% if user == game.attacker %}
+          <p>나 : {{game.attack_card}}</p>
+          <p>{{game.defender.username}} : {{game.defend_card}}</p>
+          {% if game.status == 2 %}
+          <p><span class="result"> 결과 : </span>승리</p>
+          <p><span class="result"> 점수 : </span> +{{game.attack_card}}</p>
+          {% endif %} {% if game.status == 3 %}
+          <p><span class="result"> 결과 : </span> 패배</p>
+          <p><span class="result"> 점수 : </span> -{{game.attack_card}}</p>
+          {% endif %}{% endif %} {% if user == game.defender %}
+          <p>나 : {{game.defend_card}}</p>
+          <p>{{game.attacker.username}} : {{game.attack_card}}</p>
+          {% if game.status == 2 %}
+          <p><span class="result"> 결과 : </span> 패배</p>
+          <p><span class="result"> 점수 : </span> -{{game.defend_card}}</p>
+          {% endif %} {% if game.status == 3 %}
+          <p><span class="result"> 결과 : </span> 승리</p>
+          <p><span class="result"> 점수 : </span>+{{game.defend_card}}</p>
+          {% endif %} {% endif %}
+        </div>
+
+        {% endif %}
         <a href="{% url 'games:gamelist' %}" class="goto-list">전적목록</a>
       </div>
     </main>

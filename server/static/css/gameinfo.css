@@ -46,3 +46,21 @@
   flex-direction: column;
   align-items: center;
 }
+
+.counter {
+  cursor: pointer;
+  background-color: black;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 0.2rem 0.5rem;
+  color: white;
+  text-decoration: none;
+}
+
+.game_result p {
+  font-weight: 700;
+}
+
+.result {
+  color: rgb(106, 106, 251);
+}

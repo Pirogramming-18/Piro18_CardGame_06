@@ -40,8 +40,12 @@
           {% if game.status == 1 %}
           <div class="gaming">진행중... <form action="{% url 'games:gamedelete' game.pk %}" method="post">{% csrf_token %}<input type="submit", value="게임 취소"/></form></div>
           {% endif %}
-          {% if game.status == 3 %}
-          <p> 결과 : 승리 </p>
+          {% if game.status == 2 or game.status == 3 %}
+          {% if game.status == 2 %}
+          <p><span class="result"> 결과 : </span>승리</p>
+          {% endif %} {% if game.status == 3 %}
+          <p><span class="result"> 결과 : </span> 패배</p>
+          {% endif %}
           {% endif %}
           <a href="{% url 'games:gameinfo' game.pk %}"><button>게임 정보</button></a>
         </div>
@@ -53,10 +57,14 @@
             <span class="current-player"> {{game.defender}}
           </p>
           {% if game.status == 1 %}
-          <button>반격하기</button>
+          <a class="counter" href="{% url 'games:gamecounter' game.pk %}">반격하기</a>
           {% endif %}
-          {% if game.status == 3 %}
-          <p> 결과 : 패배 </p>
+          {% if game.status == 2 or game.status == 3 %}
+          {% if game.status == 2 %}
+          <p><span class="result"> 결과 : </span> 패배</p>
+          {% endif %} {% if game.status == 3 %}
+          <p><span class="result"> 결과 : </span> 승리</p>
+          {% endif %}
           {% endif %}
           <a href="{% url 'games:gameinfo' game.pk %}"><button>게임 정보</button></a>
         </div>
