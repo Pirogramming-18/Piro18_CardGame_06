@@ -1,5 +1,5 @@
 # users/admin.py
 from django.contrib import admin
-from games import models
+from .models import Blog
 
-admin.site.register(models.User)
+admin.site.register(Blog)
