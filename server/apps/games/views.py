@@ -125,8 +125,10 @@ def game_counter(request:HttpRequest, pk, *args, **kwargs):
 
 def game_ranking(request:HttpRequest, *args, **kwargs):
     users = User.objects.order_by("-score")
+    list = list(range(1, len(users)+1))
     context = {
         "users" : users,
+        "list" : list,
     }
     return render(request, "/game_ranking.html", context=context)
 
