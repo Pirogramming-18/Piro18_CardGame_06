@@ -56,7 +56,12 @@ def game_start(request:HttpRequest,*args, **kwargs):
     return render(request, template_name='game_start.html',context=context)
 
 def game_list(request:HttpRequest, *args, **kwargs):
-    return render(request, template_name='game_list.html')
+    all_game = Game.objects.all()
+    allgame_reverse = all_game[::-1]
+    context = {
+        "allgame" : allgame_reverse,
+    }
+    return render(request, template_name='game_list.html', context=context)
 
 def game_info(request:HttpRequest, pk, *args, **kwargs):
   
@@ -97,11 +102,18 @@ def game_counter(request:HttpRequest, pk, *args, **kwargs):
     if request.method == "POST":
         Game.objects.create(
             defend_card=request.POST["defend_card"],
+            status = 2,
         )
         return redirect(f"/gameinfo/{user.pk}")
     return render(request, "games/gamecounter.html", context=context) 
 
 def game_ranking(request:HttpRequest, *args, **kwargs):
     pass
+
+def game_delete(request:HttpRequest, pk, *args, **kwargs):
+    if request.method == "POST":
+        game = Game.objects.get(id=pk)
+        game.delete()
+    return redirect("/gamelist")
 
 
