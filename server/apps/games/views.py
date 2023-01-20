@@ -65,29 +65,12 @@ def game_list(request:HttpRequest, *args, **kwargs):
 
 def game_info(request:HttpRequest, pk, *args, **kwargs):
   
-    game = Game.objects.get(pk=pk)
-    defender = game.defender.username
-    attacker = game.attacker.username 
-    attack_card = game.attack_card
-    defend_card = game.defend_card
-    status = game.status  
+    game = Game.objects.get(pk=pk) 
 
     context = {
-        "attack_card" : attack_card,
-        "defend_card" : defend_card,
-        "attacker" : attacker,
-        "defender" : defender,  
-        "status" : status }
+        "game": game}
 
-    if(status == 1):
-
-            return render(f"gameinfo/{game.pk}",context=context )        
-    if(status == 2):
-            return render(f"gameinfo/{game.pk}",context=context)
-    if(status == 3):
-            return render(f"gameinfo/{game.pk}",context=context)
-
-    return render(f"gameinfo/{game.pk}")
+    return render(request, "game_info.html", context=context)
 
 def game_counter(request:HttpRequest, pk, *args, **kwargs):
     user = User.objects.get(id=pk)

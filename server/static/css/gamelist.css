@@ -58,4 +58,5 @@
   border: 1px solid white;
   border-radius: 5px;
   padding: 0.2rem 0.5rem;
+  cursor: pointer;
 }
