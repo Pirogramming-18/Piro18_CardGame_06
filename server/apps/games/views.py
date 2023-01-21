@@ -80,7 +80,7 @@ def game_counter(request:HttpRequest, pk, *args, **kwargs):
     attacker = game.attacker
     attack_card = game.attack_card
 
-    a = list(range(1,11))
+    a = list(range(0,11))
     a.remove(game.attack_card)
     num = random.sample(a, 5)
     context={ 
